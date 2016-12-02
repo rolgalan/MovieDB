@@ -8,12 +8,40 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+
+    signingConfigs {
+
         release {
+            storeFile file('../mykey.keystore')
+            storePassword 'android'
+            keyAlias 'moviesearch'
+            keyPassword 'android'
+        }
+    }
+
+    productFlavors {
+        product {
+            minSdkVersion 16
+        }
+        dev {
+            minSdkVersion 24
+        }
+    }
+
+    buildTypes {
+        debug {
             minifyEnabled false
+            shrinkResources false
+            debuggable true
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            debuggable false
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
