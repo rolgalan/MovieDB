@@ -11,5 +11,5 @@ public interface MovieList extends List<Movie> {
 
     int getPage();
 
-    void incPage();
+    void setPage(int p);
 }

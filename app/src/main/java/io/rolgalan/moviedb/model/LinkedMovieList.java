@@ -15,7 +15,7 @@ public class LinkedMovieList extends LinkedList<Movie> implements MovieList {
     }
 
     @Override
-    public void incPage() {
-        page++;
+    public void setPage(int p) {
+        this.page = p;
     }
 }

@@ -31,59 +31,59 @@ public class MovieServer {
     float voteAverage;
 
 
-    String getposterPath() {
+    public String getPosterPath() {
         return posterPath;
     }
 
-    public boolean getadult() {
+    public boolean getAdult() {
         return adult;
     }
 
-    public String getoverview() {
+    public String getOverview() {
         return overview;
     }
 
-    public String getreleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public int[] getgenreIds() {
+    public int[] getGenreIds() {
         return genreIds;
     }
 
-    public int getid() {
+    public int getId() {
         return id;
     }
 
-    public String getoriginalTitle() {
+    public String getOriginalTitle() {
         return originalTitle;
     }
 
-    public String getoriginalLanguage() {
+    public String getOriginalLanguage() {
         return originalLanguage;
     }
 
-    public String gettitle() {
+    public String getTitle() {
         return title;
     }
 
-    public String getbackdropPath() {
+    public String getBackdropPath() {
         return backdropPath;
     }
 
-    public double getpopularity() {
+    public double getPopularity() {
         return popularity;
     }
 
-    public int getvoteCount() {
+    public int getVoteCount() {
         return voteCount;
     }
 
-    public String getvideo() {
+    public String getVideo() {
         return video;
     }
 
-    public float getvoteAverage() {
+    public float getVoteAverage() {
         return voteAverage;
     }
 }
