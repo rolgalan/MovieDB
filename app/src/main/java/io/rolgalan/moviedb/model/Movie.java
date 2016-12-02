@@ -7,6 +7,6 @@ package io.rolgalan.moviedb.model;
 public interface Movie {
     String getTitle();
     String getReleaseYear();
-    String overview();
-    String posterUrl();
+    String getOverview();
+    String getPosterUrl();
 }

@@ -34,12 +34,12 @@ public class TmdbMovie implements Movie {
     }
 
     @Override
-    public String overview() {
+    public String getOverview() {
         return overview;
     }
 
     @Override
-    public String posterUrl() {
+    public String getPosterUrl() {
         return posterUrl;
     }
 }
