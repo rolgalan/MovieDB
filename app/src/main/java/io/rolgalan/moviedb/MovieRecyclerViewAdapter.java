@@ -1,11 +1,14 @@
 package io.rolgalan.moviedb;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,27 +20,26 @@ import io.rolgalan.moviedb.model.MovieList;
  */
 public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.ViewHolder> {
 
-    private final MovieList mValues;
+    private final MovieList list;
 
     public MovieRecyclerViewAdapter(MovieList items) {
-        mValues = items;
+        list = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_movie_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_movie_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.setMovie(mValues.get(position));
+        holder.setMovie(list.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -63,7 +65,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
             titleTextView.setText(movie.getTitle());
             yearTextView.setText(movie.getReleaseYear());
             overviewTextView.setText(movie.getOverview());
-            //TODO load movie.getPosterUrl() into pictureImageView using Glide
+            loadImage(wholeView.getContext(), pictureImageView, movie.getPosterUrl());
         }
 
         @Override
@@ -77,6 +79,16 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
         public Movie getMovie() {
             return movie;
+        }
+
+        private void loadImage(Context context, ImageView image, String imgUrl) {
+            if (imgUrl != null && !imgUrl.isEmpty()) {
+                Glide.with(context).load(imgUrl)
+                        .fitCenter()
+                        //TODO Create placeholder asset and load here .placeholder(R.drawable.placeholder)
+                        .crossFade()
+                        .into(image);
+            }
         }
     }
 }
