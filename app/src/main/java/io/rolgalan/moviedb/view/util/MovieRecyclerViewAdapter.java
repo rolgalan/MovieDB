@@ -44,7 +44,6 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private View wholeView;
         @BindView(R.id.item_image)
         ImageView pictureImageView;
         @BindView(R.id.item_title)
@@ -53,20 +52,13 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         TextView yearTextView;
         @BindView(R.id.item_overview)
         TextView overviewTextView;
+        private View wholeView;
         private Movie movie;
 
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             this.wholeView = view;
-        }
-
-        public void setMovie(Movie movie) {
-            this.movie = movie;
-            titleTextView.setText(movie.getTitle());
-            yearTextView.setText(movie.getReleaseYear());
-            overviewTextView.setText(movie.getOverview());
-            loadImage(wholeView.getContext(), pictureImageView, movie.getPosterUrl());
         }
 
         @Override
@@ -80,6 +72,14 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
         public Movie getMovie() {
             return movie;
+        }
+
+        public void setMovie(Movie movie) {
+            this.movie = movie;
+            titleTextView.setText(movie.getTitle());
+            yearTextView.setText(movie.getReleaseYear());
+            overviewTextView.setText(movie.getOverview());
+            loadImage(wholeView.getContext(), pictureImageView, movie.getPosterUrl());
         }
 
         private void loadImage(Context context, ImageView image, String imgUrl) {

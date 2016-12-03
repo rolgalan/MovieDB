@@ -21,7 +21,7 @@ public class Configuration {
         return posterSizes;
     }
 
-    public String composeImageUrl(String imgPath){
+    public String composeImageUrl(String imgPath) {
         return baseImagesUrl + posterSizes[1] + imgPath;
     }
 }

@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import io.rolgalan.moviedb.view.util.MovieRecyclerViewAdapter;
 import io.rolgalan.moviedb.R;
 import io.rolgalan.moviedb.data.DataInterface;
 import io.rolgalan.moviedb.data.DataProvider;
 import io.rolgalan.moviedb.model.Movie;
 import io.rolgalan.moviedb.model.MovieList;
+import io.rolgalan.moviedb.view.util.MovieRecyclerViewAdapter;
 
 /**
  * A fragment representing a list of {@link Movie}.

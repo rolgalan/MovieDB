@@ -36,8 +36,8 @@ public class DataProvider {
         return configuration;
     }
 
-    public static String composeImageUrl(String imagePath){
-        if (configuration!=null){
+    public static String composeImageUrl(String imagePath) {
+        if (configuration != null) {
             return configuration.composeImageUrl(imagePath);
         }
         return null;
