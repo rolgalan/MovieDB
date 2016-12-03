@@ -3,6 +3,7 @@ package io.rolgalan.moviedb.server;
 import android.util.Log;
 
 import io.rolgalan.moviedb.MainActivity;
+import io.rolgalan.moviedb.server.model.ConfigurationResponse;
 import io.rolgalan.moviedb.server.model.SearchResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +33,11 @@ public class ApiManager {
 
     public void discoverMovies(final ServerResponseInterface listener) {
         Call<SearchResponse> call = RestClient.getClient().discover();
+        call.enqueue(new MyCallback(listener));
+    }
+
+    public void getConfiguration(final ServerResponseInterface listener) {
+        Call<ConfigurationResponse> call = RestClient.getClient().configuration();
         call.enqueue(new MyCallback(listener));
     }
 

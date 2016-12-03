@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import io.rolgalan.moviedb.MainActivity;
+import io.rolgalan.moviedb.server.model.ConfigurationResponse;
 import io.rolgalan.moviedb.server.model.SearchResponse;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -76,6 +77,9 @@ public class RestClient {
 
         @GET("discover/movie/?sort_by=popularity.desc")
         Call<SearchResponse> discover();
+
+        @GET("configuration")
+        Call<ConfigurationResponse> configuration();
 
         //TODO Implement movie details @GET("movie/{id}") Call<MovieResponse> movie(@Path("id") int id);
     }
