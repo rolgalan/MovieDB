@@ -1,4 +1,4 @@
-package io.rolgalan.moviedb;
+package io.rolgalan.moviedb.view.util;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.rolgalan.moviedb.R;
 import io.rolgalan.moviedb.model.Movie;
 import io.rolgalan.moviedb.model.MovieList;
 

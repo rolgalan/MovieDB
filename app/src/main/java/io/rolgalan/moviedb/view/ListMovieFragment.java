@@ -1,4 +1,4 @@
-package io.rolgalan.moviedb;
+package io.rolgalan.moviedb.view;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import io.rolgalan.moviedb.view.util.MovieRecyclerViewAdapter;
+import io.rolgalan.moviedb.R;
 import io.rolgalan.moviedb.data.DataInterface;
 import io.rolgalan.moviedb.data.DataProvider;
 import io.rolgalan.moviedb.model.Movie;
