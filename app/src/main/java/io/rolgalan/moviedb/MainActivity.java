@@ -9,12 +9,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import io.rolgalan.moviedb.data.DataProvider;
+
 public class MainActivity extends AppCompatActivity {
     public final static String TAG = "MovieDB";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DataProvider.getConfiguration();
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
