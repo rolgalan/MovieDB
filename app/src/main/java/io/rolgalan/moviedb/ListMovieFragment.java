@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import io.rolgalan.moviedb.data.DataListInterface;
+import io.rolgalan.moviedb.data.DataInterface;
 import io.rolgalan.moviedb.data.DataProvider;
 import io.rolgalan.moviedb.model.Movie;
 import io.rolgalan.moviedb.model.MovieList;
@@ -18,7 +18,7 @@ import io.rolgalan.moviedb.model.MovieList;
 /**
  * A fragment representing a list of {@link Movie}.
  */
-public class ListMovieFragment extends Fragment implements DataListInterface {
+public class ListMovieFragment extends Fragment implements DataInterface<MovieList> {
     RecyclerView recyclerView;
 
     /**
