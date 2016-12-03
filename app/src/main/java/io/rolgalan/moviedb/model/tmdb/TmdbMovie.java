@@ -1,5 +1,6 @@
 package io.rolgalan.moviedb.model.tmdb;
 
+import io.rolgalan.moviedb.data.DataProvider;
 import io.rolgalan.moviedb.model.Movie;
 import io.rolgalan.moviedb.server.model.MovieServer;
 
@@ -50,7 +51,6 @@ public class TmdbMovie implements Movie {
 
     @Override
     public String getPosterUrl() {
-        //TODO Compose posterUrl with base_url https://developers.themoviedb.org/3/getting-started/images
-        return posterUrl;
+        return DataProvider.composeImageUrl(posterUrl);
     }
 }
