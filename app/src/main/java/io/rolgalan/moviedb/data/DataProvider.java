@@ -5,7 +5,8 @@ import io.rolgalan.moviedb.model.Movie;
 import io.rolgalan.moviedb.model.MovieList;
 import io.rolgalan.moviedb.model.tmdb.TmdbMovie;
 import io.rolgalan.moviedb.server.ApiManager;
-import io.rolgalan.moviedb.server.SearchResponseInterface;
+import io.rolgalan.moviedb.server.ServerResponseInterface;
+import io.rolgalan.moviedb.server.model.ConfigurationResponse;
 import io.rolgalan.moviedb.server.model.MovieServer;
 import io.rolgalan.moviedb.server.model.SearchResponse;
 
@@ -24,11 +25,10 @@ public class DataProvider {
         ApiManager.getInstance().searchMovies(query, new SearchResponseBoundary(listener));
     }
 
-    private static class SearchResponseBoundary implements SearchResponseInterface {
+    private static class SearchResponseBoundary implements ServerResponseInterface<SearchResponse> {
         final DataListInterface listener;
 
         public SearchResponseBoundary(DataListInterface listener) {
-
             this.listener = listener;
         }
 

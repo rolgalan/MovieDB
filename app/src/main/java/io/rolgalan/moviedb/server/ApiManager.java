@@ -25,12 +25,12 @@ public class ApiManager {
         return instance;
     }
 
-    public void searchMovies(String query, final SearchResponseInterface listener) {
+    public void searchMovies(String query, final ServerResponseInterface listener) {
         Call<SearchResponse> call = RestClient.getClient().search(query);
         call.enqueue(new MyCallback(listener));
     }
 
-    public void discoverMovies(final SearchResponseInterface listener) {
+    public void discoverMovies(final ServerResponseInterface listener) {
         Call<SearchResponse> call = RestClient.getClient().discover();
         call.enqueue(new MyCallback(listener));
     }
@@ -38,15 +38,15 @@ public class ApiManager {
     /**
      * Generic callback for common error handling.
      */
-    private static class MyCallback implements Callback<SearchResponse> {
-        private final SearchResponseInterface listener;
+    private static class MyCallback<T> implements Callback<T> {
+        private final ServerResponseInterface listener;
 
-        private MyCallback(SearchResponseInterface listener) {
+        private MyCallback(ServerResponseInterface listener) {
             this.listener = listener;
         }
 
         @Override
-        public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+        public void onResponse(Call<T> call, Response<T> response) {
             Log.d(MainActivity.TAG, "MyCallback.onResponse success " + (response != null ? response.isSuccessful() : "responseNULL"));
             if (response != null) {
 
@@ -64,7 +64,7 @@ public class ApiManager {
         }
 
         @Override
-        public void onFailure(Call<SearchResponse> call, Throwable t) {
+        public void onFailure(Call<T> call, Throwable t) {
             Log.e(MainActivity.TAG, "MyCallback.onFailure " + t);
             t.printStackTrace();
             listener.onError("Error requesting data to the server");
