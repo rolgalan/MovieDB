@@ -15,6 +15,7 @@ import retrofit2.Response;
 
 public class ApiManager {
     private static ApiManager instance;
+    private Call currentCall;
 
     private ApiManager() {
     }
@@ -27,18 +28,27 @@ public class ApiManager {
     }
 
     public void searchMovies(String query, final ServerResponseInterface listener) {
+        cancelCall();
         Call<SearchResponse> call = RestClient.getClient().search(query);
         call.enqueue(new MyCallback(listener));
+        currentCall = call;
     }
 
     public void discoverMovies(final ServerResponseInterface listener) {
+        cancelCall();
         Call<SearchResponse> call = RestClient.getClient().discover();
         call.enqueue(new MyCallback(listener));
+        currentCall = call;
     }
 
     public void getConfiguration(final ServerResponseInterface listener) {
         Call<ConfigurationResponse> call = RestClient.getClient().configuration();
         call.enqueue(new MyCallback(listener));
+    }
+
+    public void cancelCall() {
+        if (currentCall != null) currentCall.cancel();
+        currentCall = null;
     }
 
     /**
@@ -72,8 +82,8 @@ public class ApiManager {
         @Override
         public void onFailure(Call<T> call, Throwable t) {
             Log.e(MainActivity.TAG, "MyCallback.onFailure " + t);
-            t.printStackTrace();
-            listener.onError("Error requesting data to the server");
+            //t.printStackTrace();
+            if (!t.getMessage().equals("Canceled")) listener.onError("Error requesting data to the server");
         }
     }
 }
