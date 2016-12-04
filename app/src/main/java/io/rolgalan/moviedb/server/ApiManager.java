@@ -27,16 +27,16 @@ public class ApiManager {
         return instance;
     }
 
-    public void searchMovies(String query, final ServerResponseInterface listener) {
+    public void searchMovies(String query, int page, final ServerResponseInterface listener) {
         cancelCall();
-        Call<SearchResponse> call = RestClient.getClient().search(query);
+        Call<SearchResponse> call = RestClient.getClient().search(query, page);
         call.enqueue(new MyCallback(listener));
         currentCall = call;
     }
 
-    public void discoverMovies(final ServerResponseInterface listener) {
+    public void discoverMovies(int page, final ServerResponseInterface listener) {
         cancelCall();
-        Call<SearchResponse> call = RestClient.getClient().discover();
+        Call<SearchResponse> call = RestClient.getClient().discover(page);
         call.enqueue(new MyCallback(listener));
         currentCall = call;
     }

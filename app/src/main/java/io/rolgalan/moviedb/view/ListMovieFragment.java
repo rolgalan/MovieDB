@@ -1,7 +1,6 @@
 package io.rolgalan.moviedb.view;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,11 +47,9 @@ public class ListMovieFragment extends Fragment implements DataInterface<MovieLi
         View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
 
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
             recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
             recyclerView.setAdapter(new MovieRecyclerViewAdapter(DataProvider.ITEMS));
-
         }
         return view;
     }
@@ -61,7 +58,7 @@ public class ListMovieFragment extends Fragment implements DataInterface<MovieLi
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setupSearchView();
-        DataProvider.discoverMovies(this);
+        DataProvider.discoverMovies(0, this);
     }
 
     private void setupSearchView() {
@@ -76,7 +73,7 @@ public class ListMovieFragment extends Fragment implements DataInterface<MovieLi
                     searchView.hideProgress();
                 } else {
                     searchView.showProgress();
-                    DataProvider.searchMovies(newQuery, ListMovieFragment.this);
+                    DataProvider.searchMovies(newQuery, 0, ListMovieFragment.this);
                     Log.i(MainActivity.TAG, newQuery);
                 }
             }

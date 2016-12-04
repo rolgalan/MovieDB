@@ -19,12 +19,12 @@ public class DataProvider {
     public static final MovieList ITEMS = new LinkedMovieList();
     private static Configuration configuration;
 
-    public static void discoverMovies(DataInterface<MovieList> listener) {
-        ApiManager.getInstance().discoverMovies(new SearchResponseBoundary(listener));
+    public static void discoverMovies(int page, DataInterface<MovieList> listener) {
+        ApiManager.getInstance().discoverMovies(page, new SearchResponseBoundary(listener));
     }
 
-    public static void searchMovies(String query, DataInterface<MovieList> listener) {
-        ApiManager.getInstance().searchMovies(query, new SearchResponseBoundary(listener));
+    public static void searchMovies(String query, int page, DataInterface<MovieList> listener) {
+        ApiManager.getInstance().searchMovies(query, page, new SearchResponseBoundary(listener));
     }
 
     public static void getConfiguration(DataInterface<Configuration> listener) {
