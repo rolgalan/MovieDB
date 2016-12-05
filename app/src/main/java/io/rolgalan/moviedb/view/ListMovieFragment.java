@@ -25,7 +25,7 @@ import io.rolgalan.moviedb.view.util.MovieRecyclerViewAdapter;
 /**
  * A fragment representing a list of {@link Movie}.
  */
-public class ListMovieFragment extends Fragment implements DataInterface<MovieList> {
+public class ListMovieFragment extends Fragment implements DataInterface<MovieList>, MovieRecyclerViewAdapter.LoadMoreListener {
     private RecyclerView recyclerView;
     private FloatingSearchView searchView;
     private boolean isLoading = false;
@@ -66,7 +66,7 @@ public class ListMovieFragment extends Fragment implements DataInterface<MovieLi
     private void setupRecyclerView(RecyclerView view) {
         recyclerView = view;
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(new MovieRecyclerViewAdapter(DataProvider.ITEMS));
+        recyclerView.setAdapter(new MovieRecyclerViewAdapter(DataProvider.ITEMS, this));
 
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

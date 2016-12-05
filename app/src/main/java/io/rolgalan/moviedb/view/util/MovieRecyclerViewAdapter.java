@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.rolgalan.moviedb.R;
 import io.rolgalan.moviedb.model.Movie;
 import io.rolgalan.moviedb.model.MovieList;
@@ -20,9 +21,11 @@ import io.rolgalan.moviedb.model.MovieList;
  * {@link RecyclerView.Adapter} that can display a {@link Movie}
  */
 public class MovieRecyclerViewAdapter extends FooterRecyclerViewAdapter<Movie> {
+    private final LoadMoreListener listener;
 
-    public MovieRecyclerViewAdapter(MovieList items) {
+    public MovieRecyclerViewAdapter(MovieList items, LoadMoreListener listener) {
         super(items);
+        this.listener = listener;
     }
 
     @Override
@@ -47,9 +50,19 @@ public class MovieRecyclerViewAdapter extends FooterRecyclerViewAdapter<Movie> {
 
     }
 
-    private static class FooterViewHolder extends RecyclerView.ViewHolder {
-        public FooterViewHolder(View itemView) {
-            super(itemView);
+    public interface LoadMoreListener {
+        void loadMore();
+    }
+
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+        public FooterViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+
+        @OnClick(R.id.loadmore_button)
+        public void onButtonClicked() {
+            if (listener != null) listener.loadMore();
         }
     }
 
@@ -74,14 +87,6 @@ public class MovieRecyclerViewAdapter extends FooterRecyclerViewAdapter<Movie> {
         @Override
         public String toString() {
             return super.toString() + " '" + movie.getTitle() + "'";
-        }
-
-        public View getWholeView() {
-            return wholeView;
-        }
-
-        public Movie getMovie() {
-            return movie;
         }
 
         public void setMovie(Movie movie) {
