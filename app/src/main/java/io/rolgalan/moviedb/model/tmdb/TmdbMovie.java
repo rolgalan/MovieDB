@@ -27,7 +27,7 @@ public class TmdbMovie implements Movie {
         return new TmdbMovie("Title " + i, String.valueOf((int) (1916 + Math.random() * 100)), "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", "http://pics.filmaffinity.com/westworld-284116982-large.jpg");
     }
 
-    private static String getYearFromDate(String date) {
+    protected static String getYearFromDate(String date) {
         if (date != null && date.length() > 3) {
             return date.substring(0, 4);
         }
