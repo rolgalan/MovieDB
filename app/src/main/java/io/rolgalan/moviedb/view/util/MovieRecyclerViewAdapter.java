@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,21 +48,31 @@ public class MovieRecyclerViewAdapter extends FooterRecyclerViewAdapter<Movie> {
 
     @Override
     protected void onBindFooterViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        listener.setLoadMoreButon(((FooterViewHolder) holder).getButton());
     }
 
     public interface LoadMoreListener {
         void loadMore();
+
+        void setLoadMoreButon(Button button);
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.loadmore_button)
+        Button button;
+
         public FooterViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
 
+        public Button getButton(){
+            return button;
+        }
+
         @OnClick(R.id.loadmore_button)
         public void onButtonClicked() {
+            button.setEnabled(false);
             if (listener != null) listener.loadMore();
         }
     }
@@ -99,7 +110,8 @@ public class MovieRecyclerViewAdapter extends FooterRecyclerViewAdapter<Movie> {
 
         private void loadImage(Context context, ImageView image, String imgUrl) {
             if (imgUrl != null && !imgUrl.isEmpty()) {
-                Glide.with(context).load(imgUrl)
+                Glide.with(context)
+                        .load(imgUrl)
                         .fitCenter()
                         .placeholder(R.drawable.placeholder)
                         .crossFade()

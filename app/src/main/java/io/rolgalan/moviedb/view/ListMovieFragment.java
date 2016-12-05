@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
@@ -30,6 +31,7 @@ public class ListMovieFragment extends Fragment implements DataInterface<MovieLi
     private FloatingSearchView searchView;
     private boolean isLoading = false;
     private String currentQuery = null;
+    private Button loadMoreButton;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -96,6 +98,7 @@ public class ListMovieFragment extends Fragment implements DataInterface<MovieLi
     public void loadMore() {
         Log.i(MainActivity.TAG, "loadMoreButton");
         if (!isLoading) {
+            if (loadMoreButton != null) loadMoreButton.setEnabled(false);
             searchView.showProgress();
             isLoading = true;
             int nextPage = DataProvider.ITEMS.getPage() + 1;
@@ -105,6 +108,11 @@ public class ListMovieFragment extends Fragment implements DataInterface<MovieLi
                 DataProvider.discoverMovies(nextPage, this);
             }
         }
+    }
+
+    @Override
+    public void setLoadMoreButon(Button button) {
+        this.loadMoreButton = button;
     }
 
     private void setupSearchView() {
@@ -130,6 +138,7 @@ public class ListMovieFragment extends Fragment implements DataInterface<MovieLi
     private void onRequestEnded() {
         searchView.hideProgress();
         isLoading = false;
+        if (loadMoreButton != null) loadMoreButton.setEnabled(true);
     }
 
     @Override
