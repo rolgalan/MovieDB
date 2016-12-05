@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.rolgalan.moviedb.R;
 import io.rolgalan.moviedb.model.Movie;
 import io.rolgalan.moviedb.model.MovieList;
@@ -19,31 +20,53 @@ import io.rolgalan.moviedb.model.MovieList;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Movie}
  */
-public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.ViewHolder> {
+public class MovieRecyclerViewAdapter extends FooterRecyclerViewAdapter<Movie> {
+    private final LoadMoreListener listener;
 
-    private final MovieList list;
-
-    public MovieRecyclerViewAdapter(MovieList items) {
-        list = items;
+    public MovieRecyclerViewAdapter(MovieList items, LoadMoreListener listener) {
+        super(items);
+        this.listener = listener;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    protected MovieViewHolder getItemView(LayoutInflater inflater, ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_movie_item, parent, false);
-        return new ViewHolder(view);
+        return new MovieViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.setMovie(list.get(position));
+    protected FooterViewHolder getFooterView(LayoutInflater inflater, ViewGroup parent) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.load_more, parent, false);
+        return new FooterViewHolder(view);
     }
 
     @Override
-    public int getItemCount() {
-        return list.size();
+    protected void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position, Movie data) {
+        ((MovieViewHolder) holder).setMovie(data);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    protected void onBindFooterViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+    public interface LoadMoreListener {
+        void loadMore();
+    }
+
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+        public FooterViewHolder(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+
+        @OnClick(R.id.loadmore_button)
+        public void onButtonClicked() {
+            if (listener != null) listener.loadMore();
+        }
+    }
+
+    public static class MovieViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.item_image)
         ImageView pictureImageView;
         @BindView(R.id.item_title)
@@ -55,7 +78,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         private View wholeView;
         private Movie movie;
 
-        public ViewHolder(View view) {
+        public MovieViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             this.wholeView = view;
@@ -64,14 +87,6 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         @Override
         public String toString() {
             return super.toString() + " '" + movie.getTitle() + "'";
-        }
-
-        public View getWholeView() {
-            return wholeView;
-        }
-
-        public Movie getMovie() {
-            return movie;
         }
 
         public void setMovie(Movie movie) {

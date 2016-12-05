@@ -19,12 +19,12 @@ public class DataProvider {
     public static final MovieList ITEMS = new LinkedMovieList();
     private static Configuration configuration;
 
-    public static void discoverMovies(DataInterface<MovieList> listener) {
-        ApiManager.getInstance().discoverMovies(new SearchResponseBoundary(listener));
+    public static void discoverMovies(int page, DataInterface<MovieList> listener) {
+        ApiManager.getInstance().discoverMovies(page, new SearchResponseBoundary(listener));
     }
 
-    public static void searchMovies(String query, DataInterface<MovieList> listener) {
-        ApiManager.getInstance().searchMovies(query, new SearchResponseBoundary(listener));
+    public static void searchMovies(String query, int page, DataInterface<MovieList> listener) {
+        ApiManager.getInstance().searchMovies(query, page, new SearchResponseBoundary(listener));
     }
 
     public static void getConfiguration(DataInterface<Configuration> listener) {
@@ -54,12 +54,12 @@ public class DataProvider {
         public void onResultsReceived(SearchResponse response) {
             if (response != null && response.results != null && !response.results.isEmpty()) {
                 MovieList list = new LinkedMovieList();
-                list.setPage(response.page);
                 for (MovieServer ms : response.results) {
                     Movie m = new TmdbMovie(ms);
                     if (m != null) list.add(m);
                 }
-                ITEMS.clear();
+                ITEMS.setPage(response.page);
+                if (ITEMS.getPage() <= 1) ITEMS.clear();
                 ITEMS.addAll(list);
                 if (listener != null) listener.onResultsReceived(list);
             }

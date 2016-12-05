@@ -73,10 +73,10 @@ public class RestClient {
 
     public interface ApiInterface {
         @GET("search/movie")
-        Call<SearchResponse> search(@Query("query") String query);
+        Call<SearchResponse> search(@Query("query") String query, @Query("page") int page);
 
         @GET("discover/movie/?sort_by=popularity.desc")
-        Call<SearchResponse> discover();
+        Call<SearchResponse> discover(@Query("page") int page);
 
         @GET("configuration")
         Call<ConfigurationResponse> configuration();
