@@ -101,7 +101,7 @@ public class MovieRecyclerViewAdapter extends FooterRecyclerViewAdapter<Movie> {
             if (imgUrl != null && !imgUrl.isEmpty()) {
                 Glide.with(context).load(imgUrl)
                         .fitCenter()
-                        //TODO Create placeholder asset and load here .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.placeholder)
                         .crossFade()
                         .into(image);
             }
