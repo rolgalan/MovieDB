@@ -36,6 +36,10 @@ public class DataProvider {
         return configuration;
     }
 
+    public static void setConfiguration(Configuration configuration) {
+        DataProvider.configuration = configuration;
+    }
+
     public static String composeImageUrl(String imagePath) {
         if (configuration != null) {
             return configuration.composeImageUrl(imagePath);
@@ -81,7 +85,7 @@ public class DataProvider {
         @Override
         public void onResultsReceived(ConfigurationResponse response) {
             if (response != null) {
-                configuration = new Configuration(response.getBaseUrl(), response.getPosterSizes());
+                setConfiguration(new Configuration(response.getBaseUrl(), response.getPosterSizes()));
                 if (listener != null) listener.onResultsReceived(configuration);
             }
         }
