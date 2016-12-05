@@ -51,6 +51,8 @@ public class ListMovieFragment extends Fragment implements DataInterface<MovieLi
         if (view instanceof RecyclerView) {
             setupRecyclerView((RecyclerView) view);
         }
+        ButterKnife.bind(this, view);
+
         return view;
     }
 
@@ -85,15 +87,16 @@ public class ListMovieFragment extends Fragment implements DataInterface<MovieLi
                     //Load new page when 10 elements left for end
                     if ((total - 10) == lastVisibleItemCount) {
                         loadMore();
-                        searchView.showProgress();
                     }
                 }
             }
         });
     }
 
-    private void loadMore() {
+    public void loadMore() {
+        Log.i(MainActivity.TAG, "loadMoreButton");
         if (!isLoading) {
+            searchView.showProgress();
             isLoading = true;
             int nextPage = DataProvider.ITEMS.getPage() + 1;
             if (currentQuery != null) {

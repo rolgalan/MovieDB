@@ -19,31 +19,41 @@ import io.rolgalan.moviedb.model.MovieList;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Movie}
  */
-public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecyclerViewAdapter.ViewHolder> {
-
-    private final MovieList list;
+public class MovieRecyclerViewAdapter extends FooterRecyclerViewAdapter<Movie> {
 
     public MovieRecyclerViewAdapter(MovieList items) {
-        list = items;
+        super(items);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    protected MovieViewHolder getItemView(LayoutInflater inflater, ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_movie_item, parent, false);
-        return new ViewHolder(view);
+        return new MovieViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.setMovie(list.get(position));
+    protected FooterViewHolder getFooterView(LayoutInflater inflater, ViewGroup parent) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.load_more, parent, false);
+        return new FooterViewHolder(view);
     }
 
     @Override
-    public int getItemCount() {
-        return list.size();
+    protected void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position, Movie data) {
+        ((MovieViewHolder) holder).setMovie(data);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    protected void onBindFooterViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+    }
+
+    private static class FooterViewHolder extends RecyclerView.ViewHolder {
+        public FooterViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+    public static class MovieViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.item_image)
         ImageView pictureImageView;
         @BindView(R.id.item_title)
@@ -55,7 +65,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
         private View wholeView;
         private Movie movie;
 
-        public ViewHolder(View view) {
+        public MovieViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             this.wholeView = view;
