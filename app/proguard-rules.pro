@@ -52,5 +52,5 @@
     public *;
 }
 
--keep class io.rolgalan.musicsearch.model.** { *; }
--keep class io.rolgalan.musicsearch.server.model.** { *; }
+-keep class io.rolgalan.moviedb.model.** { *; }
+-keep class io.rolgalan.moviedb.server.model.** { *; }
